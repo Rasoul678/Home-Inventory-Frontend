@@ -1,25 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
-function App() {
+import Header from './components/Header';
+import Home from './components/Home';
+import LoginPage from './components/auth/LoginPage';
+import RegisterPage from './components/auth/RegisterPage';
+import NotFound from './components/NotFound';
+import Company from './components/Company';
+import Profile from './components/Profile';
+import Items from './components/items/Items';
+import ShowItem from './components/items/ShowItem';
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Header />
+        <Switch>
+          <Route exact path = "/" component = {Home} />
+          <Route exact path = "/login" component = {LoginPage} />
+          <Route exact path = "/register" component = {RegisterPage} />
+          <Route exact path = "/companies" component = {Company} />
+          <Route exact path = "/profile/:name" component = {Profile} />
+          <Route exact path = "/items" component = {Items} />
+          <Route exact path = "/items/:id/details" component = {ShowItem} />
+          <Route exact path = "*" component = {NotFound} />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
