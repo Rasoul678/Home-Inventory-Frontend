@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link, withRouter, useHistory } from 'react-router-dom';
 import Axios from 'axios';
-import LogOutLogo from '../images/log-out.svg';
-import LoginLogo from '../images/log-in.svg';
-import RegisterLogo from '../images/user-plus.svg';
+import {LogOutLogo, LoginLogo,RegisterLogo, Settings } from '../helpers/svgIcons';
 
 const Header = () => {
 
@@ -30,11 +28,14 @@ const Header = () => {
 
   return (
     <div className="flex justify-between items-center bg-purple-600 h-16 px-10">
-      <Link to="/" className ="text-4xl text-gray-200">Inventory</Link>
+      <Link to="/" className="text-3xl text-gray-200 mr-8">Home</Link>
       {
         user ? (
-          <div className="flex">
+          <div className="flex items-center">
             <Link to={`/profile/${user.name}`} className ="text-2xl text-gray-200 mr-5" title="Profile">{user.name}</Link>
+            <Link to="/settings" className ="text-2xl text-gray-200 mr-5">
+              <img src={Settings} alt="settings" title="Settings"/>
+            </Link>
             <Link to="#" onClick={() => logout()} className ="text-2xl text-gray-200">
               <img src={LogOutLogo} alt="logout" title="Logout"/>
             </Link>

@@ -1,40 +1,32 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
-import ExternalLink from '../../images/external-link.svg';
-import Arrow from '../../images/chevrons-right.svg';
+import {Arrow ,ExternalLink} from '../../helpers/svgIcons';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
 import {Axios, refreshAuthLogic, options} from '../../helpers/axiosMiddleware';
+import { useQuery } from 'react-query';
 
 const Items = () => {
 
-    const [items, setItems] = useState([]);
-
     createAuthRefreshInterceptor(Axios, refreshAuthLogic, options);
 
-    useEffect(() => {
-        Axios({
-            method: 'GET',
-            url: '/api/v1/items'
-        })
-        .then(response => {
-            console.log(response.data)
-            setItems(response.data);
-        })
-        .catch(error => console.log(error));
-    }, []);
+    const {data:items} = useQuery('items', () => 
+        Axios.get('/api/v1/items')
+        .then(response => response.data)
+        .catch(error => console.log(error))
+    );
 
 
     return (
         <div className="m-10">
-            <div className="flex items-center justify-between my-6">
-                <div className="flex items-center text-2xl">
-                    <Link to="/" className="hover:underline" >Inventory</Link>
+            <div className="grid grid-cols-6 my-6">
+                <div className="col-span-6 sm:col-span-4 xl:col-span-5 flex items-center text-2xl">
+                    <div>Inventory</div>
                     <img src={Arrow} alt="arrow"/>
                     <span className="font-bold">Items</span>
                 </div>
-                <button className="px-5 py-2 rounded-full bg-green-400 text-xl">Add item</button>
+                <Link to="/items/create" className="col-span-6 sm:col-span-2 xl:col-span-1 text-center px-5 py-2 rounded-full bg-green-400 text-xl">New item</Link>
             </div>
-            <div className ="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className ="grid grid-cols-1 md:grid-cols-2 gap-12">
                 {
                     items?.map((item) => {
                         return (
@@ -56,9 +48,10 @@ const Items = () => {
                                     <h1 className="border-l-4 border-orange-500 px-1 m-2 ml-5 rounded">Size: {item.size.name}</h1>
                                     <h1 className="border-l-4 border-green-500 px-1 m-2 ml-5 rounded">Added by: {item.user.name}</h1>
                                     </div>
-                                    <div className="col-span-1 grid grid-cols-2 xl:grid-cols-3 gap-2 items-center">
+                                    <div className="col-span-1 grid grid-cols-1 sm:grid-cols-3  md:grid-cols-1 xl:grid-cols-2 gap-2 items-center">
                                         {
-                                            item.item_images.map((image) => {
+                                            item.item_images.filter(image => !image.deleted_at).map((image, index) => {
+                                                if(index > 1) return '';
                                                 return (
                                                     <img className="h-32 rounded border-2 border-gray-500 m-auto" src={image.image_url} alt={item.name} title={item.name} key={image.id} />
                                                 )

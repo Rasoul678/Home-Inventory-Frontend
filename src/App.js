@@ -6,10 +6,11 @@ import Home from './components/Home';
 import LoginPage from './components/auth/LoginPage';
 import RegisterPage from './components/auth/RegisterPage';
 import NotFound from './components/NotFound';
-import Company from './components/Company';
 import Profile from './components/Profile';
 import Items from './components/items/Items';
 import ShowItem from './components/items/ShowItem';
+import AddItem from './components/items/AddItem';
+import Settings from './components/Settings';
 
 const App = () => {
   return (
@@ -20,9 +21,10 @@ const App = () => {
           <Route exact path = "/" component = {Home} />
           <Route exact path = "/login" component = {LoginPage} />
           <Route exact path = "/register" component = {RegisterPage} />
-          <Route exact path = "/companies" component = {Company} />
+          <Route exact path = "/settings" component = {Settings} />
           <Route exact path = "/profile/:name" component = {Profile} />
           <Route exact path = "/items" component = {Items} />
+          <Route exact path = "/items/create" component = {AddItem} />
           <Route exact path = "/items/:id/details" component = {ShowItem} />
           <Route exact path = "*" component = {NotFound} />
         </Switch>
