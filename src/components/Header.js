@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link, withRouter, useHistory } from 'react-router-dom';
 import Axios from 'axios';
 import {LogOutLogo, LoginLogo,RegisterLogo, Settings } from '../helpers/svgIcons';
@@ -6,6 +6,8 @@ import {LogOutLogo, LoginLogo,RegisterLogo, Settings } from '../helpers/svgIcons
 const Header = () => {
 
   const history = useHistory();
+
+  const [showSetting, setShowSetting] = useState(false);
 
   const user = JSON.parse(localStorage.getItem('user'));
 
@@ -33,9 +35,17 @@ const Header = () => {
         user ? (
           <div className="flex items-center">
             <Link to={`/profile/${user.name}`} className ="text-2xl text-gray-200 mr-5" title="Profile">{user.name}</Link>
-            <Link to="/settings" className ="text-2xl text-gray-200 mr-5">
+            <div onClick={() => setShowSetting(!showSetting)} className ="text-2xl text-gray-200 mr-5 cursor-pointer">
               <img src={Settings} alt="settings" title="Settings"/>
-            </Link>
+              {
+                showSetting &&
+                <div className="absolute p-5 bg-gray-700 text-white right-0 rounded mt-5 mr-12">
+                  <Link to="/settings/location" className="text-xl block">Location</Link>
+                  <Link to="/settings/company" className="text-xl block">Company</Link>
+                  <Link to="/settings/address" className="text-xl block">Address</Link>
+                </div>
+              }
+            </div>
             <Link to="#" onClick={() => logout()} className ="text-2xl text-gray-200">
               <img src={LogOutLogo} alt="logout" title="Logout"/>
             </Link>

@@ -119,7 +119,7 @@ const AddItem = () => {
                         <input 
                         onChange={(e) => setName(e.target.value)}
                         type="text"
-                        className ="text-md w-full md:w-4/5 p-1 rounded text-black" 
+                        className ="text-md px-4 py-1 rounded text-black w-full" 
                         id="item-name"
                         autoFocus
                         required
@@ -130,7 +130,7 @@ const AddItem = () => {
                         <input 
                         onChange={(e) => setSku(e.target.value)}
                         type="text"
-                        className ="text-md w-full md:w-4/5 p-1 rounded text-black" 
+                        className ="text-md px-4 py-1 rounded text-black w-full" 
                         id="sku"
                         />
                     </div>
@@ -187,7 +187,7 @@ const AddItem = () => {
                         required>
                             <option value="">select...</option>
                             {
-                                companies?.map(company => {
+                                companies?.filter((company) => company.type === 'producer')?.map(company => {
                                     return (
                                         <option 
                                         value={company.id} 

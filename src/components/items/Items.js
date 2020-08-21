@@ -45,7 +45,7 @@ const Items = () => {
                                     <div className="col-span-1 text-xl">
                                     <h1 className="border-l-4 border-red-500 px-1 m-2 ml-5 rounded">type: {item.item_type.name}</h1>
                                     <h1 className="border-l-4 border-blue-500 px-1 m-2 ml-5 rounded">Company: {item.company.name}</h1>
-                                    <h1 className="border-l-4 border-orange-500 px-1 m-2 ml-5 rounded">Size: {item.size.name}</h1>
+                                    <h1 className="border-l-4 border-orange-500 px-1 m-2 ml-5 rounded">Products: {item.products.length}</h1>
                                     <h1 className="border-l-4 border-green-500 px-1 m-2 ml-5 rounded">Added by: {item.user.name}</h1>
                                     </div>
                                     <div className="col-span-1 grid grid-cols-1 sm:grid-cols-3  md:grid-cols-1 xl:grid-cols-2 gap-2 items-center">
